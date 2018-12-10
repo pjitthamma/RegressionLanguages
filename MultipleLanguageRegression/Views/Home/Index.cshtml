@@ -1,0 +1,504 @@
+﻿@using MultipleLanguageRegression.ViewModels;
+@model HomeViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+        <script src="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js"></script>
+        <link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css">       
+        <link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css" rel="stylesheet" type="text/css">
+        @*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">*@
+
+<style>
+body{
+	font-family: "Arial", Georgia, Serif;
+	vertical-align: middle;
+}
+
+p{
+    position: relative;
+    bottom: 37px;
+}
+
+div{
+    margin-left: 10px;
+}
+
+.btn-group>.btn:first-child {
+    margin-left: 0;
+    display: block;
+    border-color: darkgray;
+    top: 7px;
+    width: 170px;
+}
+
+/*.btn-group>.btn:first-child{
+    margin-left: 0;
+    position: relative;
+    /*bottom: 28px;*/
+    top: 8px;
+    /*left: 240px;*/
+    /*right: 132px;*/
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    border-color: darkgray;
+    width: 160px;
+}*/
+
+input, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    width: 380px;
+}
+
+#header{
+    border-bottom: 6px solid red;
+    background-color: lightgrey;
+    text-align: left;
+    font-size: 30px; 
+    height: 60px; 
+    font-weight: bold;
+}
+
+#note{
+    margin-top: 10px;
+    color: red;
+    font-size: 15px;
+    margin-left: 10px
+}
+            
+#expBox{
+    display:table;
+    border:double;
+    border-width:medium;
+    font-weight: bold;
+    background-color: lightgrey;
+}
+
+#ReportPath{
+    display:table;
+    margin-top: 20px;
+}
+
+.hide-all{
+    display: none;
+}
+
+.multiselect-container{
+    list-style-type: none;
+    margin: 8px;
+    padding: 0;
+    left: -6px;
+    /*top: -6px;*/
+}
+
+#sendData{
+    position: relative;
+    /*top: 20px;*/
+    right: 20px;
+    left: 250px;
+}
+
+.btn-group, .btn-group-vertical {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    right: 132px;
+    top: 20px;
+}
+
+.btn{
+    display: inline-block;
+    padding: 4px 14px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.428571429;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.open > .dropdown-menu{
+     display: block;
+     height: 200px;
+     width: 80px;
+     overflow-x: scroll;
+}
+
+#ballsWaveG{
+	position:relative;
+	width:125px;
+	height:29px;
+	margin:auto;
+    top: 20px;
+    left: -10px;
+}
+
+.ballsWaveG{
+	position:absolute;
+	top:0;
+	background-color:rgb(0,0,0);
+	width:16px;
+	height:16px;
+	animation-name:ballsWaveG;
+		-o-animation-name:ballsWaveG;
+		-ms-animation-name:ballsWaveG;
+		-webkit-animation-name:ballsWaveG;
+		-moz-animation-name:ballsWaveG;
+	animation-duration:1.5s;
+		-o-animation-duration:1.5s;
+		-ms-animation-duration:1.5s;
+		-webkit-animation-duration:1.5s;
+		-moz-animation-duration:1.5s;
+	animation-iteration-count:infinite;
+		-o-animation-iteration-count:infinite;
+		-ms-animation-iteration-count:infinite;
+		-webkit-animation-iteration-count:infinite;
+		-moz-animation-iteration-count:infinite;
+	animation-direction:normal;
+		-o-animation-direction:normal;
+		-ms-animation-direction:normal;
+		-webkit-animation-direction:normal;
+		-moz-animation-direction:normal;
+	border-radius:8px;
+		-o-border-radius:8px;
+		-ms-border-radius:8px;
+		-webkit-border-radius:8px;
+		-moz-border-radius:8px;
+}
+
+#ballsWaveG_1{
+	left:0;
+	animation-delay:0.6s;
+		-o-animation-delay:0.6s;
+		-ms-animation-delay:0.6s;
+		-webkit-animation-delay:0.6s;
+		-moz-animation-delay:0.6s;
+}
+
+#ballsWaveG_2{
+	left:16px;
+	animation-delay:0.75s;
+		-o-animation-delay:0.75s;
+		-ms-animation-delay:0.75s;
+		-webkit-animation-delay:0.75s;
+		-moz-animation-delay:0.75s;
+}
+
+#ballsWaveG_3{
+	left:31px;
+	animation-delay:0.9s;
+		-o-animation-delay:0.9s;
+		-ms-animation-delay:0.9s;
+		-webkit-animation-delay:0.9s;
+		-moz-animation-delay:0.9s;
+}
+
+#ballsWaveG_4{
+	left:47px;
+	animation-delay:1.05s;
+		-o-animation-delay:1.05s;
+		-ms-animation-delay:1.05s;
+		-webkit-animation-delay:1.05s;
+		-moz-animation-delay:1.05s;
+}
+
+#ballsWaveG_5{
+	left:62px;
+	animation-delay:1.2s;
+		-o-animation-delay:1.2s;
+		-ms-animation-delay:1.2s;
+		-webkit-animation-delay:1.2s;
+		-moz-animation-delay:1.2s;
+}
+
+#ballsWaveG_6{
+	left:78px;
+	animation-delay:1.35s;
+		-o-animation-delay:1.35s;
+		-ms-animation-delay:1.35s;
+		-webkit-animation-delay:1.35s;
+		-moz-animation-delay:1.35s;
+}
+
+#ballsWaveG_7{
+	left:94px;
+	animation-delay:1.5s;
+		-o-animation-delay:1.5s;
+		-ms-animation-delay:1.5s;
+		-webkit-animation-delay:1.5s;
+		-moz-animation-delay:1.5s;
+}
+
+#ballsWaveG_8{
+	left:109px;
+	animation-delay:1.64s;
+		-o-animation-delay:1.64s;
+		-ms-animation-delay:1.64s;
+		-webkit-animation-delay:1.64s;
+		-moz-animation-delay:1.64s;
+}
+
+@@keyframes ballsWaveG{
+	0%{
+		background-color:rgb(0,0,0);
+	}
+
+	100%{
+		background-color:rgb(255,255,255);
+	}
+}
+
+@@-o-keyframes ballsWaveG{
+	0%{
+		background-color:rgb(0,0,0);
+	}
+
+	100%{
+		background-color:rgb(255,255,255);
+	}
+}
+
+@@-ms-keyframes ballsWaveG{
+	0%{
+		background-color:rgb(0,0,0);
+	}
+
+	100%{
+		background-color:rgb(255,255,255);
+	}
+}
+
+@@-webkit-keyframes ballsWaveG{
+	0%{
+		background-color:rgb(0,0,0);
+	}
+
+	100%{
+		background-color:rgb(255,255,255);
+	}
+}
+
+@@-moz-keyframes ballsWaveG{
+	0%{
+		background-color:rgb(0,0,0);
+	}
+
+	100%{
+		background-color:rgb(255,255,255);
+	}
+}
+</style>
+
+        @* [pass expid to excute config file] *@
+        <script>
+            function Click() {
+                var expid = $('#expid').val();
+                var selected = $("#language option:selected");
+                var languageList = [];
+                
+                if (expid.indexOf('=') != -1 || expid == "") {
+                    selected.each(function () {
+                        languageList.push($(this).val());
+                    });
+
+                    $("#expid").attr("disabled", true);
+                    $(".multiselect.dropdown-toggle.btn.btn-default").attr("disabled", true);
+                    //$("#sendData").addClass("hide-all");
+                    $("#ballsWaveG").removeClass("hide-all");
+                    $("#running").addClass("hide-all");
+                    $("#sendData").attr("disabled", true);
+                    $("#path").text("");
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("ExecuteRegressionBat", "Home")',
+                        dataType: 'json',
+                        data: {
+                            'ExpId': expid,
+                            'LanguageList': languageList
+                        },
+                        success: function (result) {
+                            var data = result.ReportLocation;
+                            $("#path").text(data);
+                            $("a").prop("href", data);
+                            $("#expid").attr("disabled", false);
+                            $(".multiselect.dropdown-toggle.btn.btn-default").attr("disabled", false);
+                            $("#expid").val("");
+                            $("#ballsWaveG").addClass("hide-all");
+                            $("#running").addClass("hide-all");
+                            //$("#sendData").removeClass("hide-all");
+                            $("#sendData").attr("disabled", false);
+                        },
+                    });
+                }
+                else {
+                    alert('Experiment name should be in "TEST-123=B" format only');
+                }
+            }
+            
+            function CheckStatus() {
+                setTimeout(function () { Polling();}, 3000) // Change interval here !!  1000 * 60
+            }
+
+            function Polling() {
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("CheckFlag", "Home")',
+                    success: function (result) {
+                        console.log(result);
+                        CheckStatus();
+                        if (result === "True") {
+                            $("#expid").attr("disabled", true);
+                            $(".multiselect.dropdown-toggle.btn.btn-default").attr("disabled", true);
+                            $("#ballsWaveG").removeClass("hide-all");
+                            $("#running").removeClass("hide-all");
+                            //$("#sendData").addClass("hide-all");
+                            $("#sendData").attr("disabled", true);
+                        } else {
+                            $("#expid").attr("disabled", false);
+                            $(".multiselect.dropdown-toggle.btn.btn-default").attr("disabled", false);
+                            $("#ballsWaveG").addClass("hide-all");
+                            $("#running").addClass("hide-all");
+                            $("#sendData").attr("disabled", false);
+                            //$("#sendData").removeClass("hide-all");
+                        }
+                    }
+                });
+            }
+            CheckStatus();
+        </script>
+        
+        <script>
+            $(function () {
+                $('#language').multiselect({
+                    includeSelectAllOption: true,
+                    buttonText: function (options, select) {
+                        return "(" + options.length +")" + " selected";
+                    },
+                });
+                $("#language").multiselect('selectAll', false);
+                $("#language").multiselect('updateButtonText');
+        });
+        </script>
+
+        <script>
+            function validateForm() {
+                var x = document.forms["myForm"]["fname"].value;
+                if (x == null || x == "") {
+                    alert("Name must be filled out");
+                    return false;
+                }
+            }
+        </script>
+
+    <title>Automate Regression</title>
+    </head>
+    <body>
+        <nav id="header">
+            <div><br><p>&nbspMultiple Languages Regression</p></div>
+        </nav>
+
+        <div id="note">Note: This Regression walkthrought all main pages (First Landing, SSR, Property, Booking Form) for all languages</div>
+        
+        <div><br><br><b>Please put the Experiment Name </b><font color ="gray"><i>(ig.TEST-123=B,CMS-456=A)</i></font><br></div>
+               <div id="expBox" style="width: 410px; height: 180px">
+                   <span>
+                       <br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Experiment Name:<br>
+                       &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" id="expid" style="width: 350px;" @if (Model.Flag) {<text>disabled</text>}><br>
+                       &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Language Select:
+                       <select id="language" multiple="multiple">
+                           <option value="1">English</option>
+                           <option value="2">Français</option>
+                           <option value="3">Deutsch</option>
+                           <option value="4">Italiano</option>
+                           <option value="5">Español</option>
+                           <option value="6">日本語</option>
+                           <option value="7">繁體中文 (香港)</option>
+                           <option value="8">简体中文</option>
+                           <option value="9">한국어</option>
+                           <option value="10">Ελληνικά</option>
+                           <option value="11">Português (PT)</option>
+                           <option value="12">Nederlands</option>
+                           <option value="13">English / Canada</option>
+                           <option value="14">English / India</option>
+                           <option value="15">English / United Kingdom</option>
+                           <option value="16">English / South-Africa</option>
+                           <option value="17">English / Australia</option>
+                           <option value="18">English / Singapore</option>
+                           <option value="19">繁體中文 (台灣)</option>
+                           <option value="20">English / New Zealand</option>
+                           <option value="21">ภาษาไทย</option>
+                           <option value="22">Bahasa Malaysia</option>
+                           <option value="23">Tiếng Việt</option>
+                           <option value="24">Svenska</option>
+                           <option value="25">Bahasa Indonesia</option>
+                           <option value="26">Język polski</option>
+                           <option value="27">Norsk</option>
+                           <option value="28">Dansk</option>
+                           <option value="29">Suomi</option>
+                           <option value="30">Čeština</option>
+                           <option value="31">Türkçe</option>
+                           <option value="32">Català</option>
+                           <option value="33">Magyar</option>
+                           <option value="34">हिन्दी</option>
+                           <option value="35">Български език</option>
+                           <option value="36">Română</option>
+                           <option value="37">Slovenski jezik</option>
+                           <option value="38">עברית</option>
+                           <option value="39">العربية</option>
+                           <option value="40">Nederlands / België</option>
+                           <option value="41">English / Ireland</option>
+                           <option value="42">Português (BR)</option>
+                           <option value="43">Español / Argentina</option>
+                           <option value="44">Español / México</option>
+                           <option value="45">Lietuvių</option>
+                           <option value="46">Latviešu</option>
+                           <option value="47">Hrvatski</option>
+                           <option value="48">Eesti</option>
+                           <option value="49">Українська</option>
+                           <option value="50">Русский</option>
+                    </select>
+                       
+                       @*<button id="sendData" @if (Model.Flag) { <text> class="hide-all" </text> } onclick="Click()">Start Regression</button>*@
+                       <button id="sendData" onclick="Click()">Start Regression</button>
+                   </span>
+                       <div id="ballsWaveG" @if (!Model.Flag) { <text> class="hide-all" </text> }>
+                   @*<div id="ballsWaveG">*@
+                           <div id="ballsWaveG_1" class="ballsWaveG"></div>
+                           <div id="ballsWaveG_2" class="ballsWaveG"></div>
+                           <div id="ballsWaveG_3" class="ballsWaveG"></div>
+                           <div id="ballsWaveG_4" class="ballsWaveG"></div>
+                           <div id="ballsWaveG_5" class="ballsWaveG"></div>
+                           <div id="ballsWaveG_6" class="ballsWaveG"></div>
+                           <div id="ballsWaveG_7" class="ballsWaveG"></div>
+                           <div id="ballsWaveG_8" class="ballsWaveG"></div>
+                       </div>
+                   </div>
+       <div id="running"  @if (!Model.Flag) { <text> class="hide-all" </text> } style="color:red;"><b>Regression is running....</b></div>
+       <div id="ReportPath">
+            <b>Report Path:&nbsp</b> <a href="" id="path"></a>
+       </div>
+</body>
+</html>
